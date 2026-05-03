@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitesh Jangir - Kundali Analysis</title>
+    <style>
+        :root {
+            --primary-color: #d35400; /* Saffron/Orange */
+            --secondary-color: #2c3e50; /* Dark Blue */
+            --bg-color: #fdf6e3;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .card h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #ccc;
+            padding: 8px 0;
+        }
+
+        .detail-item strong {
+            color: var(--secondary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Tabs styling */
+        .tab-container {
+            margin-top: 2rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #eee;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: #ddd;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>हितेश जांगिड़</h1>
+        <p>जन्म पत्रिका एवं ज्योतिषीय विश्लेषण (Kundali Analysis)</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Section 1: Basic Details -->
+        <div class="card">
+            <h2>जन्म विवरण (Birth Details)</h2>
+            <div class="grid-2">
+                <div>
+                    <div class="detail-item"><strong>नाम:</strong> <span>हितेश जांगिड़</span></div>
+                    <div class="detail-item"><strong>जन्म तिथि:</strong> <span>14 जनवरी 1998</span></div>
+                    <div class="detail-item"><strong>जन्म समय:</strong> <span>~ शाम 06:00 बजे (सूर्यास्त)</span></div>
+                    <div class="detail-item"><strong>हिन्दू मास:</strong> <span>पौष (Posh)</span></div>
+                    <div class="detail-item"><strong>तिथि:</strong> <span>कृष्ण पक्ष - द्वितीया</span></div>
+                </div>
+                <div>
+                    <div class="detail-item"><strong>लग्न (Ascendant):</strong> <span>कर्क (Cancer)</span></div>
+                    <div class="detail-item"><strong>चंद्र राशि (Moon Sign):</strong> <span>कर्क (Cancer)</span></div>
+                    <div class="detail-item"><strong>नक्षत्र:</strong> <span>आश्लेषा (चरण 2)</span></div>
+                    <div class="detail-item"><strong>गण / नाड़ी:</strong> <span>राक्षस / अंत्य</span></div>
+                    <div class="detail-item"><strong>योग / करण:</strong> <span>प्रीति / गर</span></div>
+                </div>
+            </div>
+            <p style="font-size: 0.9em; color: gray; margin-top: 15px;">* नोट: जन्म का सटीक समय मिनटों में कुंडली के पेजों पर स्पष्ट नहीं है, परंतु ग्रहों की डिग्री (लग्न कर्क और सूर्य मकर) के आधार पर समय सूर्यास्त के आसपास का निकाला गया है।</p>
+        </div>
+
+        <!-- Section 2: Planetary Positions -->
+        <div class="card">
+            <h2>ग्रह स्पष्ट (Planetary Positions)</h2>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ग्रह (Planet)</th>
+                            <th>राशि (Sign)</th>
+                            <th>भाव (House)</th>
+                            <th>स्थिति (Status)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>लग्न (Ascendant)</td><td>कर्क (Cancer)</td><td>1st House</td><td>-</td></tr>
+                        <tr><td>सूर्य (Sun)</td><td>मकर (Capricorn)</td><td>7th House</td><td>-</td></tr>
+                        <tr><td>चंद्र (Moon)</td><td>कर्क (Cancer)</td><td>1st House</td><td>स्वग्रही (Own Sign)</td></tr>
+                        <tr><td>मंगल (Mars)</td><td>मकर (Capricorn)</td><td>7th House</td><td>उच्च (Exalted)</td></tr>
+                        <tr><td>बुध (Mercury)</td><td>धनु (Sagittarius)</td><td>6th House</td><td>-</td></tr>
+                        <tr><td>गुरु (Jupiter)</td><td>कुंभ (Aquarius)</td><td>8th House</td><td>-</td></tr>
+                        <tr><td>शुक्र (Venus)</td><td>मकर (Capricorn)</td><td>7th House</td><td>वक्री (Retrograde)</td></tr>
+                        <tr><td>शनि (Saturn)</td><td>मीन (Pisces)</td><td>9th House</td><td>-</td></tr>
+                        <tr><td>राहु (Rahu)</td><td>सिंह (Leo)</td><td>2nd House</td><td>-</td></tr>
+                        <tr><td>केतु (Ketu)</td><td>कुंभ (Aquarius)</td><td>8th House</td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Predictions (Tabs) -->
+        <div class="card tab-container">
+            <h2>कुंडली विश्लेषण (Predictions)</h2>
+            
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="openTab('personality')">व्यक्तित्व (Personality)</button>
+                <button class="tab-btn" onclick="openTab('career')">करियर (Career)</button>
+                <button class="tab-btn" onclick="openTab('marriage')">विवाह व प्रेम (Marriage)</button>
+                <button class="tab-btn" onclick="openTab('health')">स्वास्थ्य व दोष (Health & Doshas)</button>
+            </div>
+
+            <div id="personality" class="tab-content active">
+                <h3>स्वभाव और व्यक्तित्व</h3>
+                <p>आपका लग्न और चंद्र राशि दोनों 'कर्क' हैं। इसके स्वामी चंद्रमा होते हैं। आप स्वभाव से बहुत ही भावुक, देखभाल करने वाले और परिवार को प्राथमिकता देने वाले इंसान हैं। आपकी कल्पनाशक्ति बहुत अच्छी है। हालांकि, चंद्रमा का आश्लेषा नक्षत्र में होना यह दर्शाता है कि आप कभी-कभी बहुत ज्यादा सोचते हैं और आपके मन में एक अजीब सी बेचैनी रह सकती है। आप दूसरों की भावनाओं को जल्दी समझ लेते हैं।</p>
+            </div>
+
+            <div id="career" class="tab-content">
+                <h3>करियर और भाग्य</h3>
+                <p>आपकी कुंडली में भाग्य स्थान (9वें भाव) में शनि देव विराजमान हैं। शनि कर्म के कारक हैं। यह स्थिति बताती है कि भाग्य आपका साथ देगा लेकिन मेहनत के बाद। आपको शॉर्टकट से बचना चाहिए। तकनीकी कार्य, निर्माण, इंजीनियरिंग, रिसर्च या ऐसा काम जहाँ बहुत धैर्य की आवश्यकता हो, उसमें आप शानदार प्रदर्शन कर सकते हैं। बुध 6ठे भाव में है जो आपको प्रतियोगी परीक्षाओं या एनालिटिकल कामों में सफलता दिला सकता है।</p>
+            </div>
+
+            <div id="marriage" class="tab-content">
+                <h3>वैवाहिक जीवन और साझेदारी</h3>
+                <p>विवाह भाव (7वें भाव) में सूर्य, उच्च का मंगल और शुक्र एक साथ विराजमान हैं। यहाँ मंगल बहुत शक्तिशाली है जो आपको <b>मांगलिक</b> बनाता है। जीवनसाथी बहुत एक्टिव, आकर्षक लेकिन थोड़े क्रोधी या अनुशासित स्वभाव के हो सकते हैं। विवाह भाव में सूर्य की उपस्थिति वैवाहिक जीवन में 'ईगो (Ego)' की समस्या पैदा कर सकती है। अतः सलाह दी जाती है कि विवाह से पूर्व पूर्ण रूप से कुंडली मिलान अवश्य कराएं।</p>
+            </div>
+
+            <div id="health" class="tab-content">
+                <h3>स्वास्थ्य और ज्योतिषीय दोष</h3>
+                <ul>
+                    <li><b>गंडमूल दोष:</b> आपका जन्म आश्लेषा नक्षत्र में हुआ है, जो कि गंडमूल नक्षत्र है। यदि जन्म के समय इसकी शांति पूजा नहीं हुई है, तो मानसिक शांति के लिए इसे करवा लेना चाहिए।</li>
+                    <li><b>मांगलिक दोष:</b> सातवें भाव का मंगल आपको मांगलिक बनाता है।</li>
+                    <li><b>स्वास्थ्य:</b> गुरु 8वें भाव में होने से पेट, लिवर या पाचन से जुड़ी हल्की-फुल्की समस्याएं भविष्य में आ सकती हैं। खान-पान (विशेषकर जंक फूड) पर नियंत्रण रखें क्योंकि राहु दूसरे भाव में आपको स्वाद का शौकीन बनाता है।</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // JavaScript for tab functionality
+        function openTab(tabName) {
+            // Hide all tab content
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Remove active class from all buttons
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab and add active class to button
+            document.getElementById(tabName).classList.add("active");
+            
+            // Find the button that was clicked and make it active
+            var buttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < buttons.length; i++) {
+                if(buttons[i].getAttribute("onclick").includes(tabName)) {
+                    buttons[i].classList.add("active");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-sans)}
+.k-wrap{padding:0 0 2rem}
+.k-hero{background:#1a0a2e;border-radius:16px;padding:2rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.k-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(183,99,255,0.12);pointer-events:none}
+.k-hero::after{content:'';position:absolute;bottom:-30px;left:60px;width:100px;height:100px;border-radius:50%;background:rgba(255,160,50,0.08);pointer-events:none}
+.k-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.k-avatar{width:60px;height:60px;border-radius:50%;background:#2e1a4e;border:2px solid #7c3aed;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:500;color:#c4b5fd;flex-shrink:0}
+.k-hero-info h1{font-size:22px;font-weight:500;color:#f5f0ff;margin-bottom:4px}
+.k-hero-info p{font-size:13px;color:#a78bfa;margin-bottom:12px}
+.k-chips{display:flex;flex-wrap:wrap;gap:6px}
+.k-chip{padding:4px 12px;border-radius:20px;font-size:11px;border:0.5px solid rgba(167,139,250,0.3);color:#c4b5fd;background:rgba(124,58,237,0.15)}
+.k-chip.gold{border-color:rgba(251,191,36,0.4);color:#fde68a;background:rgba(251,191,36,0.1)}
+.k-chip.coral{border-color:rgba(251,113,133,0.4);color:#fca5a5;background:rgba(239,68,68,0.1)}
+.k-stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:1rem}
+.k-stat{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem;text-align:center}
+.k-stat .sval{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.k-stat .slbl{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px}
+.k-stat .ssub{font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+.k-stat.accent{border-color:#7c3aed;background:#faf5ff}
+.k-stat.accent .sval{color:#6d28d9}
+.k-nav{display:flex;gap:4px;flex-wrap:wrap;background:var(--color-background-secondary);border-radius:12px;padding:4px;margin-bottom:1rem}
+.k-nbtn{flex:1;min-width:80px;padding:8px 10px;font-size:12px;font-weight:500;border-radius:8px;border:none;background:transparent;color:var(--color-text-secondary);cursor:pointer;transition:all 0.2s;text-align:center}
+.k-nbtn.on{background:#1a0a2e;color:#c4b5fd}
+.sec{display:none}
+.sec.on{display:block}
+.k-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:14px;padding:1.25rem;margin-bottom:1rem}
+.k-card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.k-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ptable{width:100%;border-collapse:collapse;font-size:13px}
+.ptable th{padding:6px 10px;text-align:left;font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.5px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ptable td{padding:9px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:middle}
+.ptable tr:last-child td{border-bottom:none}
+.ptable tr:hover td{background:var(--color-background-secondary)}
+.pill{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.pill-ex{background:#EAF3DE;color:#3B6D11}
+.pill-ow{background:#E6F1FB;color:#185FA5}
+.pill-re{background:#FAEEDA;color:#854F0B}
+.pill-ne{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.pill-al{background:#FCEBEB;color:#A32D2D}
+.tl{position:relative;padding-left:1.5rem;margin-top:4px}
+.tl::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:1px;background:var(--color-border-secondary)}
+.tl-item{position:relative;margin-bottom:1.25rem}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-22px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--color-background-primary)}
+.tl-dot.star{background:#7c3aed}
+.tl-dot.warn{background:#EF9F27}
+.tl-dot.good{background:#1D9E75}
+.tl-dot.grey{background:#888780}
+.tl-yr{font-size:12px;font-weight:500;color:#7c3aed;margin-bottom:4px}
+.tl-yr.warn{color:#854F0B}
+.tl-yr.good{color:#0F6E56}
+.tl-txt{font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.bar-lbl{font-size:12px;color:var(--color-text-secondary);width:110px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;height:6px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden}
+.bar-fill{height:6px;border-radius:3px}
+.bar-num{font-size:12px;font-weight:500;color:var(--color-text-primary);width:32px;text-align:right}
+.dosha-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dosha-item{background:var(--color-background-secondary);border-radius:10px;padding:10px 12px}
+.dosha-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.dosha-val{font-size:11px}
+.dosha-bad{color:#A32D2D}
+.dosha-ok{color:#3B6D11}
+.gem-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.gem-row:last-child{border-bottom:none}
+.gem-orb{width:36px;height:36px;border-radius:50%;flex-shrink:0;border:2px solid rgba(0,0,0,0.08)}
+.gem-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.gem-why{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.gem-when{font-size:11px;color:#7c3aed;margin-top:3px}
+.mantra-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.mantra-row:last-child{border-bottom:none}
+.mantra-icon{width:28px;height:28px;border-radius:8px;background:#f5f0ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:#7c3aed;font-weight:500}
+.mantra-txt{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.mantra-sub{font-size:12px;color:var(--color-text-secondary)}
+.dasha-card{border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:12px;margin-bottom:8px}
+.dasha-card.active{border-color:#7c3aed;background:#faf5ff}
+.dasha-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.dasha-name{font-size:14px;font-weight:500}
+.dasha-name.active{color:#6d28d9}
+.dasha-period{font-size:11px;color:#7c3aed;background:#ede9fe;padding:2px 8px;border-radius:10px}
+.dasha-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.chakra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--color-border-tertiary);border-radius:12px;overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
+.cg-cell{background:var(--color-background-primary);padding:10px 8px;text-align:center;min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px}
+.cg-cell.lagna{background:#f5f0ff}
+.cg-cell .cn{font-weight:500;color:var(--color-text-primary);font-size:12px}
+.cg-cell .cp{font-size:10px;color:var(--color-text-secondary)}
+.cg-cell .ct{font-size:10px;color:#7c3aed}
+.insight-box{background:#f5f0ff;border:0.5px solid rgba(124,58,237,0.25);border-radius:12px;padding:1rem;margin-top:8px}
+.insight-box p{font-size:13px;color:#4c1d95;line-height:1.7}
+.ask-btn{margin-top:12px;padding:8px 18px;font-size:13px;cursor:pointer;border-radius:20px;border:0.5px solid #7c3aed;background:transparent;color:#7c3aed;display:inline-flex;align-items:center;gap:6px}
+.ask-btn:hover{background:#f5f0ff}
+.wealth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:1rem}
+.w-card{border-radius:12px;padding:1rem;text-align:center}
+.w-card.green{background:#EAF3DE;border:0.5px solid #C0DD97}
+.w-card.amber{background:#FAEEDA;border:0.5px solid #FAC775}
+.w-card.purple{background:#EEEDFE;border:0.5px solid #CECBF6}
+.w-card.coral{background:#FAECE7;border:0.5px solid #F5C4B3}
+.w-card .wv{font-size:18px;font-weight:500;margin-bottom:4px}
+.w-card.green .wv{color:#3B6D11}
+.w-card.amber .wv{color:#854F0B}
+.w-card.purple .wv{color:#3C3489}
+.w-card.coral .wv{color:#712B13}
+.w-card .wl{font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+.w-card.green .wl{color:#3B6D11}
+.w-card.amber .wl{color:#854F0B}
+.w-card.purple .wl{color:#3C3489}
+.w-card.coral .wl{color:#712B13}
+.score-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
+.sb-high{background:#EAF3DE;color:#3B6D11}
+.sb-med{background:#FAEEDA;color:#854F0B}
+.sb-low{background:#FAECE7;color:#993C1D}
+</style>
+
+<div class="k-wrap">
+
+<div class="k-hero">
+  <div class="k-hero-top">
+    <div style="display:flex;gap:14px;align-items:flex-start">
+      <div class="k-avatar">हि</div>
+      <div class="k-hero-info">
+        <h1>हितेश जांगिड़</h1>
+        <p>14 जनवरी 1998 · शाम ~6:00 बजे · राजस्थान</p>
+        <div class="k-chips">
+          <span class="k-chip">लग्न: कर्क</span>
+          <span class="k-chip">चंद्र: कर्क</span>
+          <span class="k-chip gold">महादशा: बुध</span>
+          <span class="k-chip">आश्लेषा नक्षत्र</span>
+          <span class="k-chip coral">मांगलिक</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:#a78bfa;margin-bottom:4px">दशा काल</div>
+      <div style="font-size:15px;font-weight:500;color:#fde68a">2014 – 2031</div>
+      <div style="font-size:11px;color:#c4b5fd;margin-top:2px">बुध महादशा</div>
+    </div>
+  </div>
+</div>
+
+<div class="k-stats-row">
+  <div class="k-stat accent"><div class="sval">कर्क</div><div class="slbl">लग्न</div><div class="ssub">Cancer Rising</div></div>
+  <div class="k-stat"><div class="sval">मकर</div><div class="slbl">सूर्य राशि</div><div class="ssub">7वें भाव में</div></div>
+  <div class="k-stat"><div class="sval">कर्क</div><div class="slbl">चंद्र राशि</div><div class="ssub">स्वग्रही</div></div>
+  <div class="k-stat"><div class="sval" style="color:#1D9E75">उच्च</div><div class="slbl">मंगल</div><div class="ssub">मकर · 7th</div></div>
+  <div class="k-stat"><div class="sval">2027</div><div class="slbl">Peak Year</div><div class="ssub">सर्वश्रेष्ठ वर्ष</div></div>
+</div>
+
+<div class="k-nav">
+  <button class="k-nbtn on" onclick="tab('grahas',this)">ग्रह स्थिति</button>
+  <button class="k-nbtn" onclick="tab('career',this)">करियर</button>
+  <button class="k-nbtn" onclick="tab('wealth',this)">धन · वित्त</button>
+  <button class="k-nbtn" onclick="tab('health',this)">स्वास्थ्य</button>
+  <button class="k-nbtn" onclick="tab('remedies',this)">उपाय · रत्न</button>
+</div>
+
+<div id="grahas" class="sec on">
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#7c3aed"></div>ग्रह स्पष्ट — Planetary Positions</div>
+    <div style="overflow-x:auto">
+      <table class="ptable">
+        <thead><tr><th>ग्रह</th><th>राशि</th><th>भाव</th><th>स्थिति</th><th>प्रभाव</th></tr></thead>
+        <tbody>
+          <tr><td><strong>लग्न</strong></td><td>कर्क (Cancer)</td><td>1st</td><td><span class="pill pill-ow">स्वयं</span></td><td style="font-size:11px;color:var(--color-text-secondary)">भावनात्मक, संवेदनशील</td></tr>
+          <tr><td>☽ चंद्र</td><td>कर्क (Cancer)</td><td>1st</td><td><span class="pill pill-ow">स्वग्रही</span></td><td style="font-size:11px;color:var(--color-text-secondary)">मन बहुत शक्तिशाली</td></tr>
+          <tr><td>☀ सूर्य</td><td>मकर (Capricorn)</td><td>7th</td><td><span class="pill pill-ne">सामान्य</span></td><td style="font-size:11px;color:var(--color-text-secondary)">व्यापार, विवाह भाव</td></tr>
+          <tr><td>♂ मंगल</td><td>मकर (Capricorn)</td><td>7th</td><td><span class="pill pill-ex">उच्च ★</span></td><td style="font-size:11px;color:var(--color-text-secondary)">ऊर्जा, साहस, मांगलिक</td></tr>
+          <tr><td>☿ बुध</td><td>धनु (Sagittarius)</td><td>6th</td><td><span class="pill pill-ne">सामान्य</span></td><td style="font-size:11px;color:var(--color-text-secondary)">बुद्धि, प्रतियोगिता</td></tr>
+          <tr><td>♃ गुरु</td><td>कुंभ (Aquarius)</td><td>8th</td><td><span class="pill pill-ne">सामान्य</span></td><td style="font-size:11px;color:var(--color-text-secondary)">अचानक लाभ संभव</td></tr>
+          <tr><td>♀ शुक्र</td><td>मकर (Capricorn)</td><td>7th</td><td><span class="pill pill-re">वक्री</span></td><td style="font-size:11px;color:var(--color-text-secondary)">विवाह में विशेष ध्यान</td></tr>
+          <tr><td>♄ शनि</td><td>मीन (Pisces)</td><td>9th</td><td><span class="pill pill-ne">भाग्यस्थ</span></td><td style="font-size:11px;color:var(--color-text-secondary)">मेहनत के बाद भाग्य</td></tr>
+          <tr><td>☊ राहु</td><td>सिंह (Leo)</td><td>2nd</td><td><span class="pill pill-al">धन भाव</span></td><td style="font-size:11px;color:var(--color-text-secondary)">स्वाद प्रिय, अनपेक्षित धन</td></tr>
+          <tr><td>☋ केतु</td><td>कुंभ (Aquarius)</td><td>8th</td><td><span class="pill pill-ne">गुप्त भाव</span></td><td style="font-size:11px;color:var(--color-text-secondary)">अचानक परिवर्तन</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#1D9E75"></div>लग्न चक्र (North Indian Chart)</div>
+    <div class="chakra-grid" style="max-width:380px;margin:0 auto">
+      <div class="cg-cell"><span class="cn">12th</span><span class="cp">मीन</span><span class="ct"></span></div>
+      <div class="cg-cell" style="grid-column:span 2;background:#f5f0ff"><span class="cn" style="color:#6d28d9">लग्न · 1st</span><span class="cp" style="color:#7c3aed">कर्क</span><span class="ct">चंद्र</span></div>
+      <div class="cg-cell"><span class="cn">2nd</span><span class="cp">सिंह</span><span class="ct" style="color:#A32D2D">राहु</span></div>
+      <div class="cg-cell"><span class="cn">11th</span><span class="cp">वृष</span><span class="ct"></span></div>
+      <div class="cg-cell" style="grid-column:span 2;background:#1a0a2e"><span class="cn" style="color:#fde68a;font-size:14px">हितेश</span><span class="cp" style="color:#a78bfa">जांगिड़</span></div>
+      <div class="cg-cell"><span class="cn">3rd</span><span class="cp">कन्या</span><span class="ct"></span></div>
+      <div class="cg-cell"><span class="cn">10th</span><span class="cp">मेष</span><span class="ct"></span></div>
+      <div class="cg-cell" style="grid-column:span 2;background:#fff8f0"><span class="cn">7th · मकर</span><span class="ct" style="color:#A32D2D">सूर्य · मंगल★</span><span class="ct" style="color:#854F0B">शुक्र(R)</span></div>
+      <div class="cg-cell"><span class="cn">4th</span><span class="cp">तुला</span><span class="ct"></span></div>
+      <div class="cg-cell"><span class="cn">9th</span><span class="cp">मीन</span><span class="ct" style="color:#0F6E56">शनि</span></div>
+      <div class="cg-cell" style="grid-column:span 2"><span class="cn">8th · कुंभ</span><span class="ct" style="color:#185FA5">गुरु · केतु</span></div>
+      <div class="cg-cell"><span class="cn">5th</span><span class="cp">वृश्चिक</span><span class="ct"></span></div>
+      <div class="cg-cell"><span class="cn">6th · धनु</span><span class="cp"></span><span class="ct" style="color:#854F0B">बुध</span></div>
+      <div class="cg-cell" style="grid-column:span 2"><span class="cn">7th →</span></div>
+    </div>
+    <p style="font-size:11px;color:var(--color-text-tertiary);text-align:center;margin-top:10px">अनुमानित स्थिति · उत्तर भारतीय शैली</p>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#EF9F27"></div>महादशा एवं अंतर्दशा</div>
+    <div class="dasha-card active">
+      <div class="dasha-head"><span class="dasha-name active">बुध महादशा (Mercury Mahadasha)</span><span class="dasha-period">2014 – 2031</span></div>
+      <div class="dasha-desc">बुध 6ठे भाव में — बुद्धि, विश्लेषण और प्रतिस्पर्धा की दशा। मेहनत से करियर में ऊंचाई। संचार और तकनीक में सफलता।</div>
+    </div>
+    <div class="dasha-card active" style="border-color:#EF9F27;background:#FAEEDA22">
+      <div class="dasha-head"><span class="dasha-name" style="color:#633806">बुध-शनि अंतर्दशा (चल रही)</span><span class="dasha-period" style="background:#FAEEDA;color:#854F0B">~2025–2028</span></div>
+      <div class="dasha-desc">शनि भाग्य स्थान में — कड़ी मेहनत का फल, नई जिम्मेदारियां। धैर्य रखें, 2027 में बड़ा breakthrough।</div>
+    </div>
+    <div class="dasha-card">
+      <div class="dasha-head"><span class="dasha-name">बुध-केतु (आगामी)</span><span class="dasha-period" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">~2028–2029</span></div>
+      <div class="dasha-desc">अचानक परिवर्तन, नई दिशा। आध्यात्मिक रुझान बढ़ेगा।</div>
+    </div>
+  </div>
+</div>
+
+<div id="career" class="sec">
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#7c3aed"></div>5-वर्षीय करियर यात्रा (2025–2030)</div>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-dot good"></div>
+        <div class="tl-yr good">2025 · नींव का वर्ष</div>
+        <div class="tl-txt">नई भूमिका या नए project में जाने का अवसर। अप्रैल–जुलाई: job change या promotion interview के लिए अनुकूल। तकनीकी skills upgrade करें।</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot warn"></div>
+        <div class="tl-yr warn">2026 · मेहनत का दौर</div>
+        <div class="tl-txt">शनि की दशा — अतिरिक्त जिम्मेदारियां। धैर्य रखें। कोई बड़ा project lead करें। Certification या higher education के लिए उत्तम वर्ष।</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot star"></div>
+        <div class="tl-yr" style="color:#7c3aed;font-size:13px">2027 · करियर का सर्वश्रेष्ठ वर्ष ★★★</div>
+        <div class="tl-txt">मंगल (उच्च) + बुध महादशा = बड़ी छलांग। March–August 2027 सबसे शुभ। Promotion, salary hike या नया business। जीवन का turning point।</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot good"></div>
+        <div class="tl-yr good">2028 · नेतृत्व और विस्तार</div>
+        <div class="tl-txt">Senior role, Team Leadership या International opportunity। स्वरोजगार शुरू करने के लिए भी उत्तम। Partnership business में लाभ।</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot grey"></div>
+        <div class="tl-yr" style="color:#5F5E5A">2029–2030 · नई दिशा</div>
+        <div class="tl-txt">केतु-शुक्र अंतर्दशा — creative या spiritual field में रुचि। नए industry में shift संभव। Social network से बड़े अवसर।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#1D9E75"></div>करियर क्षेत्र अनुकूलता</div>
+    <div class="bar-row"><span class="bar-lbl">Technology / IT</span><div class="bar-track"><div class="bar-fill" style="width:92%;background:#7c3aed"></div></div><span class="bar-num">9.2</span></div>
+    <div class="bar-row"><span class="bar-lbl">Engineering</span><div class="bar-track"><div class="bar-fill" style="width:88%;background:#7c3aed"></div></div><span class="bar-num">8.8</span></div>
+    <div class="bar-row"><span class="bar-lbl">Research / Data</span><div class="bar-track"><div class="bar-fill" style="width:85%;background:#1D9E75"></div></div><span class="bar-num">8.5</span></div>
+    <div class="bar-row"><span class="bar-lbl">Govt / Defence</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:#1D9E75"></div></div><span class="bar-num">7.8</span></div>
+    <div class="bar-row"><span class="bar-lbl">Finance / Banking</span><div class="bar-track"><div class="bar-fill" style="width:72%;background:#EF9F27"></div></div><span class="bar-num">7.2</span></div>
+    <div class="bar-row"><span class="bar-lbl">Business / Trade</span><div class="bar-track"><div class="bar-fill" style="width:65%;background:#EF9F27"></div></div><span class="bar-num">6.5</span></div>
+    <div class="bar-row"><span class="bar-lbl">Creative / Media</span><div class="bar-track"><div class="bar-fill" style="width:58%;background:#D85A30"></div></div><span class="bar-num">5.8</span></div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#EF9F27"></div>महत्वपूर्ण तिथियां</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px">
+      <div style="background:#EAF3DE;border-radius:10px;padding:10px 12px"><div style="font-size:11px;color:#3B6D11;font-weight:500;margin-bottom:3px">★ सर्वश्रेष्ठ</div><div style="font-size:12px;color:#27500A">March – Aug 2027: करियर breakthrough</div></div>
+      <div style="background:#EAF3DE;border-radius:10px;padding:10px 12px"><div style="font-size:11px;color:#3B6D11;font-weight:500;margin-bottom:3px">★ शुभ</div><div style="font-size:12px;color:#27500A">April – June 2025: नई job या role</div></div>
+      <div style="background:#FAEEDA;border-radius:10px;padding:10px 12px"><div style="font-size:11px;color:#854F0B;font-weight:500;margin-bottom:3px">! सावधान</div><div style="font-size:12px;color:#633806">Nov 2025 – Feb 2026: बड़े निर्णय टालें</div></div>
+      <div style="background:#EAF3DE;border-radius:10px;padding:10px 12px"><div style="font-size:11px;color:#3B6D11;font-weight:500;margin-bottom:3px">★ शुभ</div><div style="font-size:12px;color:#27500A">Sept 2026: Certification / course</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="wealth" class="sec">
+  <div class="wealth-grid">
+    <div class="w-card green"><div class="wv">2027</div><div class="wl">Peak Wealth</div></div>
+    <div class="w-card purple"><div class="wv">9वां</div><div class="wl">शनि भाव</div></div>
+    <div class="w-card amber"><div class="wv">2nd</div><div class="wl">राहु धन भाव</div></div>
+    <div class="w-card coral"><div class="wv">8वां</div><div class="wl">गुरु — अचानक लाभ</div></div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#1D9E75"></div>5-वर्षीय वित्त यात्रा</div>
+    <div class="tl">
+      <div class="tl-item"><div class="tl-dot good"></div><div class="tl-yr good">2025 — Side Income की शुरुआत</div><div class="tl-txt">राहु 2nd भाव में — freelance, bonus या अनपेक्षित आय। बड़े निवेश नहीं — पहले emergency fund बनाएं (6 महीने का खर्च)।</div></div>
+      <div class="tl-item"><div class="tl-dot warn"></div><div class="tl-yr warn">2026 — SIP और बचत पर ध्यान</div><div class="tl-txt">Mutual fund SIP शुरू करें। FD या debt fund safe रहेगा। Speculation से बचें। Credit card debt नहीं बढ़ाएं।</div></div>
+      <div class="tl-item"><div class="tl-dot star"></div><div class="tl-yr" style="color:#7c3aed;font-size:13px">2027 — धन का सर्वश्रेष्ठ वर्ष ★★★</div><div class="tl-txt">Salary hike + bonus + गुरु 8th भाव से अचानक windfall। Real estate खरीदने का उत्तम समय। इस साल किया निवेश 5-10 साल में बड़ा फल देगा।</div></div>
+      <div class="tl-item"><div class="tl-dot good"></div><div class="tl-yr good">2028 — संपत्ति निर्माण</div><div class="tl-txt">घर, जमीन या vehicle खरीदने का शुभ समय। Partnership में business profit। पारिवारिक संपत्ति मामले सुलझेंगे।</div></div>
+      <div class="tl-item"><div class="tl-dot grey"></div><div class="tl-yr" style="color:#5F5E5A">2029–2030 — विविध आय स्रोत</div><div class="tl-txt">Multiple income streams बनाएं। शुक्र अंतर्दशा में creative work से भी कमाई संभव।</div></div>
+    </div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#EF9F27"></div>वित्तीय सलाह</div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#EAF3DE;color:#3B6D11">SIP</div><div><div class="mantra-txt">Mutual Fund SIP</div><div class="mantra-sub">हर महीने fixed amount — long-term wealth creation</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#EAF3DE;color:#3B6D11">RE</div><div><div class="mantra-txt">Real Estate — 2027</div><div class="mantra-sub">जमीन या मकान खरीदने का सबसे शुभ समय</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FCEBEB;color:#A32D2D">!</div><div><div class="mantra-txt">Speculation से बचें</div><div class="mantra-sub">राहु के कारण gambling, crypto speculation नहीं</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FAEEDA;color:#854F0B">EF</div><div><div class="mantra-txt">Emergency Fund पहले</div><div class="mantra-sub">गुरु 8th भाव — अचानक खर्च के लिए तैयार रहें</div></div></div>
+  </div>
+</div>
+
+<div id="health" class="sec">
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#A32D2D"></div>ज्योतिषीय दोष</div>
+    <div class="dosha-grid">
+      <div class="dosha-item"><div class="dosha-name">मांगलिक दोष</div><div class="dosha-val dosha-bad">● उपस्थित — 7th भाव मंगल</div></div>
+      <div class="dosha-item"><div class="dosha-name">गंडमूल दोष</div><div class="dosha-val dosha-bad">● उपस्थित — आश्लेषा नक्षत्र</div></div>
+      <div class="dosha-item"><div class="dosha-name">कालसर्प दोष</div><div class="dosha-val dosha-ok">● नहीं है</div></div>
+      <div class="dosha-item"><div class="dosha-name">शनि साढ़ेसाती</div><div class="dosha-val dosha-ok">● वर्तमान में नहीं</div></div>
+      <div class="dosha-item"><div class="dosha-name">पितृ दोष</div><div class="dosha-val dosha-ok">● स्पष्ट नहीं</div></div>
+      <div class="dosha-item"><div class="dosha-name">नाड़ी दोष</div><div class="dosha-val dosha-bad">● अंत्य — विवाह मिलान में जरूरी</div></div>
+    </div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#EF9F27"></div>स्वास्थ्य चेतावनियां (साल-वार)</div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FAEEDA;color:#854F0B">पाच</div><div><div class="mantra-txt">पाचन तंत्र — सदैव सावधान</div><div class="mantra-sub">गुरु 8th भाव — liver, पेट, digestion। जंक food कम करें।</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#EEEDFE;color:#3C3489">मन</div><div><div class="mantra-txt">मानसिक बेचैनी</div><div class="mantra-sub">आश्लेषा चंद्र — anxiety, overthinking। Meditation daily करें।</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FAEEDA;color:#854F0B">2026</div><div><div class="mantra-txt">2026 — हड्डियां / जोड़</div><div class="mantra-sub">शनि अंतर्दशा — थकान, joints। Calcium, Vitamin D लें।</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#EAF3DE;color:#3B6D11">योग</div><div><div class="mantra-txt">व्यायाम आवश्यक</div><div class="mantra-sub">कर्क लग्न — Swimming या Yoga सबसे उपयुक्त।</div></div></div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#D4537E"></div>विवाह और रिश्ते</div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FCEBEB;color:#A32D2D">!</div><div><div class="mantra-txt">मांगलिक — कुंडली मिलान अनिवार्य</div><div class="mantra-sub">मांगलिक जातक से विवाह श्रेष्ठ। नाड़ी दोष पर भी ध्यान दें।</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#EAF3DE;color:#3B6D11">★</div><div><div class="mantra-txt">विवाह समय — 2027–28</div><div class="mantra-sub">शुक्र + मंगल की स्थिति — वैवाहिक जीवन के लिए अत्यंत शुभ।</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FAEEDA;color:#854F0B">E</div><div><div class="mantra-txt">Ego से बचें</div><div class="mantra-sub">7th भाव में सूर्य — जीवनसाथी के साथ संवाद और सम्मान जरूरी।</div></div></div>
+  </div>
+</div>
+
+<div id="remedies" class="sec">
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#7c3aed"></div>रत्न सुझाव (Gemstones)</div>
+    <div class="gem-row">
+      <div class="gem-orb" style="background:#5DCAA5"></div>
+      <div><div class="gem-name">पन्ना (Emerald) — प्रमुख</div><div class="gem-why">बुध महादशा में पन्ना सर्वश्रेष्ठ। करियर, बुद्धि, संचार में वृद्धि। कम से कम 5 कैरेट, चांदी की अंगूठी में।</div><div class="gem-when">बुधवार, सुबह उगते सूरज में, कनिष्ठा अंगुली</div></div>
+    </div>
+    <div class="gem-row">
+      <div class="gem-orb" style="background:#B5D4F4"></div>
+      <div><div class="gem-name">मोती (Pearl) — सहायक</div><div class="gem-why">कर्क लग्न का स्वामी चंद्र — मोती मानसिक शांति, स्वास्थ्य और भावनात्मक स्थिरता देगा।</div><div class="gem-when">सोमवार, चांदी की अंगूठी, कनिष्ठा अंगुली</div></div>
+    </div>
+    <div class="gem-row">
+      <div class="gem-orb" style="background:#F0997B"></div>
+      <div><div class="gem-name">मूंगा (Red Coral) — वैकल्पिक</div><div class="gem-why">मंगल उच्च का — ऊर्जा और साहस देगा। लेकिन मांगलिक दोष के कारण विशेषज्ञ की सलाह लें।</div><div class="gem-when">मंगलवार, सोने की अंगूठी — विशेषज्ञ से परामर्श के बाद</div></div>
+    </div>
+  </div>
+
+  <div class="k-card">
+    <div class="k-card-title"><div class="k-dot" style="background:#EF9F27"></div>मंत्र और उपाय</div>
+    <div class="mantra-row"><div class="mantra-icon">बु</div><div><div class="mantra-txt">बुध मंत्र — "ॐ बुं बुधाय नमः"</div><div class="mantra-sub">108 बार, बुधवार, हरे कपड़े, हरी वस्तुएं दान</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon">चं</div><div><div class="mantra-txt">चंद्र मंत्र — "ॐ सों सोमाय नमः"</div><div class="mantra-sub">सोमवार, दूध से अभिषेक, सफेद वस्त्र दान</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#FCEBEB;color:#A32D2D">मं</div><div><div class="mantra-txt">मंगल दोष — "ॐ अं अंगारकाय नमः"</div><div class="mantra-sub">मंगलवार, हनुमान जी की पूजा, लाल वस्त्र दान</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon" style="background:#EAF3DE;color:#3B6D11">दान</div><div><div class="mantra-txt">साप्ताहिक दान</div><div class="mantra-sub">बुधवार — मूंग दाल, हरी सब्जी · सोमवार — दूध, चावल</div></div></div>
+    <div class="mantra-row"><div class="mantra-icon">गं</div><div><div class="mantra-txt">गंडमूल शांति पूजा</div><div class="mantra-sub">किसी योग्य पंडित से आश्लेषा नक्षत्र शांति करवाएं</div></div></div>
+  </div>
+
+  <div class="insight-box">
+    <p>आपकी कुंडली में मंगल की उच्च स्थिति और चंद्रमा का स्वग्रह होना आपको जन्म से ही विशेष योग देता है। बुध महादशा (2014-2031) में अपनी बुद्धि और तकनीकी कौशल पर ध्यान दें। <strong style="color:#6d28d9">2027 आपके जीवन का सबसे बड़ा turning point होगा</strong> — करियर, धन और वैवाहिक जीवन तीनों में। धैर्य, परिश्रम और सही दिशा ही सफलता की कुंजी है।</p>
+    <button class="ask-btn" onclick="sendPrompt('मेरी कुंडली में सबसे शक्तिशाली yoga कौन सा है और 2027 में exactly क्या होगा?')">और गहरा विश्लेषण पूछें ↗</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+function tab(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.k-nbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
